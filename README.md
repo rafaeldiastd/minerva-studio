@@ -25,6 +25,11 @@ python -m http.server 8000
 
 ## Formulário de contato
 
+Cada envio registra o lead no CRM via `LEAD_ENDPOINT` (Supabase Edge Function
+`lead-intake`): `POST` com JSON em `Content-Type: text/plain`, sem preflight. O
+campo escondido `website` é honeypot. O envio usa `keepalive` e não espera
+resposta, para o WhatsApp abrir no mesmo clique.
+
 O formulário abre o WhatsApp (+55 47 98909-3759) com a mensagem pronta. O
 número fica no começo do `<script>` em `index.html`:
 

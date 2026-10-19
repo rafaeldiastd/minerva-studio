@@ -165,6 +165,7 @@ h2,h3{text-wrap:balance}
 .field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--accent);outline-offset:6px}
 .form__foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
 .form__status{font-size:13px;color:var(--muted);min-height:1.5em}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 @media (max-width:900px){.contact__grid{grid-template-columns:minmax(0,1fr)}.contact__intro,.form{grid-column:auto}}
 @media (max-width:520px){.form{grid-template-columns:minmax(0,1fr)}}
 
@@ -410,6 +411,10 @@ section[id]{scroll-margin-top:8px}
           <label for="f-msg">Sua ideia</label>
           <textarea id="f-msg" name="mensagem" required></textarea>
         </div>
+        <div class="hp" aria-hidden="true">
+          <label for="f-website">Site</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
         <div class="form__foot">
           <p class="form__status" id="f-status" role="status" aria-live="polite"></p>
           <button class="btn btn--solid" type="submit" id="f-send">Enviar mensagem</button>
@@ -438,14 +443,16 @@ section[id]{scroll-margin-top:8px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-// Formulário: valida no navegador e abre o WhatsApp com a mensagem pronta.
+// Formulário: valida no navegador, registra o lead no CRM e abre o WhatsApp com a mensagem pronta.
 // Sem número configurado, cai para o e-mail.
 var WHATSAPP = '5547989093759'; // só dígitos, com DDI e DDD
 var EMAIL = 'falecom@minervastudio.com.br';
+var LEAD_ENDPOINT = 'https://qcoxwhryvktpifmhrfxc.supabase.co/functions/v1/lead-intake';
 (function(){
   var form = document.getElementById('contact-form');
   var status = document.getElementById('f-status');
   var whats = document.getElementById('f-whats');
+  var lastLead = '';
   if(WHATSAPP) document.getElementById('f-send').textContent = 'Enviar pelo WhatsApp';
 
   // Máscara simples (00) 00000-0000
@@ -464,6 +471,31 @@ var EMAIL = 'falecom@minervastudio.com.br';
       return;
     }
     var f = form.elements;
+    var digits = f.whatsapp.value.replace(/\D/g, '');
+    if(digits && digits.length < 10){
+      status.textContent = 'Confira o WhatsApp: use DDD + número, ou deixe em branco.';
+      whats.focus();
+      return;
+    }
+
+    // Envia ao CRM sem esperar resposta: o WhatsApp precisa abrir no mesmo clique
+    // para não ser bloqueado como pop-up, e keepalive garante a entrega se a pessoa sair da página.
+    var lead = JSON.stringify({
+      nome: f.nome.value.trim(),
+      email: f.email.value.trim(),
+      whatsapp: f.whatsapp.value,
+      servico: f.servico.value || 'Ainda não sei',
+      mensagem: f.mensagem.value.trim(),
+      origem: 'site',
+      pagina: location.href,
+      website: f.website.value
+    });
+    if(lead !== lastLead){
+      lastLead = lead;
+      fetch(LEAD_ENDPOINT, {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: lead, keepalive: true})
+        .catch(function(err){ console.warn('Falha ao registrar lead', err); });
+    }
+
     var linhas = [
       'Olá, minerva studio! Vim pelo site.',
       '',
