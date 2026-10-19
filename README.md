@@ -3,7 +3,7 @@
 Site institucional da minerva studio — desenvolvimento, design e marketing.
 
 Site estático (HTML + CSS + JS puro), publicado com GitHub Pages:
-https://rafaeldiastd.github.io/minerva-studio/
+https://minervastudio.com.br/
 
 ## Estrutura
 
