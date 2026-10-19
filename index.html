@@ -164,7 +164,10 @@ h2,h3{text-wrap:balance}
 .field textarea{min-height:110px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--accent);outline-offset:6px}
 .form__foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
-.form__status{font-size:13px;color:var(--muted);min-height:1.5em}
+.form__status{font-size:13px;color:var(--muted);min-height:1.5em;max-width:46ch}
+.form__status[data-state="ok"]{color:var(--fg);font-weight:500}
+.form__status[data-state="error"]{color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:progress}
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 @media (max-width:900px){.contact__grid{grid-template-columns:minmax(0,1fr)}.contact__intro,.form{grid-column:auto}}
 @media (max-width:520px){.form{grid-template-columns:minmax(0,1fr)}}
@@ -443,8 +446,8 @@ section[id]{scroll-margin-top:8px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-// Formulário: valida no navegador, registra o lead no CRM e abre o WhatsApp com a mensagem pronta.
-// Sem número configurado, cai para o e-mail.
+// Formulário: valida no navegador, registra o lead no CRM e mostra o resultado aqui mesmo.
+// Se o envio falhar, oferece o WhatsApp (ou o e-mail) com a mensagem pronta.
 var WHATSAPP = '5547989093759'; // só dígitos, com DDI e DDD
 var EMAIL = 'falecom@minervastudio.com.br';
 var LEAD_ENDPOINT = 'https://qcoxwhryvktpifmhrfxc.supabase.co/functions/v1/lead-intake';
@@ -452,8 +455,8 @@ var LEAD_ENDPOINT = 'https://qcoxwhryvktpifmhrfxc.supabase.co/functions/v1/lead-
   var form = document.getElementById('contact-form');
   var status = document.getElementById('f-status');
   var whats = document.getElementById('f-whats');
-  var lastLead = '';
-  if(WHATSAPP) document.getElementById('f-send').textContent = 'Enviar pelo WhatsApp';
+  var send = document.getElementById('f-send');
+  var sending = false;
 
   // Máscara simples (00) 00000-0000
   whats.addEventListener('input', function(){
@@ -462,24 +465,51 @@ var LEAD_ENDPOINT = 'https://qcoxwhryvktpifmhrfxc.supabase.co/functions/v1/lead-
       : d.length > 2 ? '(' + d.slice(0,2) + ') ' + d.slice(2) : d;
   });
 
+  function show(state, text, fallback){
+    status.dataset.state = state;
+    status.textContent = text;
+    if(fallback){
+      var a = document.createElement('a');
+      a.href = fallback.href;
+      a.textContent = fallback.label;
+      if(fallback.blank){ a.target = '_blank'; a.rel = 'noopener'; }
+      status.append(' ', a);
+    }
+  }
+
+  function fallbackLink(f){
+    var texto = [
+      'Olá, minerva studio! Vim pelo site.',
+      '',
+      'Nome: ' + f.nome.value.trim(),
+      'E-mail: ' + f.email.value.trim(),
+      f.whatsapp.value ? 'WhatsApp: ' + f.whatsapp.value : null,
+      'Serviço: ' + (f.servico.value || 'Ainda não sei'),
+      '',
+      f.mensagem.value.trim()
+    ].filter(function(l){ return l !== null; }).join('\n');
+    return WHATSAPP
+      ? {href: 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), label: 'Falar pelo WhatsApp', blank: true}
+      : {href: 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Contato pelo site · ' + f.nome.value.trim()) + '&body=' + encodeURIComponent(texto), label: 'Enviar por e-mail'};
+  }
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
+    if(sending) return;
     var invalid = form.querySelector(':invalid');
     if(invalid){
-      status.textContent = 'Preencha nome, e-mail válido e a sua ideia para continuar.';
+      show('error', 'Preencha nome, e-mail válido e a sua ideia para continuar.');
       invalid.focus();
       return;
     }
     var f = form.elements;
     var digits = f.whatsapp.value.replace(/\D/g, '');
     if(digits && digits.length < 10){
-      status.textContent = 'Confira o WhatsApp: use DDD + número, ou deixe em branco.';
+      show('error', 'Confira o WhatsApp: use DDD + número, ou deixe em branco.');
       whats.focus();
       return;
     }
 
-    // Envia ao CRM sem esperar resposta: o WhatsApp precisa abrir no mesmo clique
-    // para não ser bloqueado como pop-up, e keepalive garante a entrega se a pessoa sair da página.
     var lead = JSON.stringify({
       nome: f.nome.value.trim(),
       email: f.email.value.trim(),
@@ -490,30 +520,38 @@ var LEAD_ENDPOINT = 'https://qcoxwhryvktpifmhrfxc.supabase.co/functions/v1/lead-
       pagina: location.href,
       website: f.website.value
     });
-    if(lead !== lastLead){
-      lastLead = lead;
-      fetch(LEAD_ENDPOINT, {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: lead, keepalive: true})
-        .catch(function(err){ console.warn('Falha ao registrar lead', err); });
-    }
 
-    var linhas = [
-      'Olá, minerva studio! Vim pelo site.',
-      '',
-      'Nome: ' + f.nome.value.trim(),
-      'E-mail: ' + f.email.value.trim(),
-      f.whatsapp.value ? 'WhatsApp: ' + f.whatsapp.value : null,
-      'Serviço: ' + (f.servico.value || 'Ainda não sei'),
-      '',
-      f.mensagem.value.trim()
-    ].filter(function(l){ return l !== null; });
-    var texto = linhas.join('\n');
-    if(WHATSAPP){
-      window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
-      status.textContent = 'Abrimos o WhatsApp com a sua mensagem. É só enviar por lá.';
-    } else {
-      location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Contato pelo site · ' + f.nome.value.trim()) + '&body=' + encodeURIComponent(texto);
-      status.textContent = 'Abrimos o seu e-mail com a mensagem pronta. É só enviar.';
-    }
+    sending = true;
+    send.disabled = true;
+    send.textContent = 'Enviando…';
+    show('pending', 'Enviando a sua mensagem…');
+
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = ctrl && setTimeout(function(){ ctrl.abort(); }, 15000);
+
+    // text/plain evita o preflight de CORS; o endpoint lê o corpo como JSON.
+    fetch(LEAD_ENDPOINT, {method: 'POST', headers: {'Content-Type': 'text/plain'}, body: lead, signal: ctrl && ctrl.signal})
+      .then(function(res){
+        if(res.ok){
+          form.reset();
+          show('ok', 'Mensagem recebida! A gente responde ainda hoje.');
+        } else if(res.status === 422){
+          show('error', 'Algum campo não passou na conferência. Revise nome, e-mail e WhatsApp e tente de novo.');
+        } else if(res.status === 429){
+          show('error', 'Recebemos muitas mensagens deste endereço na última hora. Fale com a gente direto:', fallbackLink(f));
+        } else {
+          show('error', 'Não conseguimos registrar a sua mensagem agora. Fale com a gente direto:', fallbackLink(f));
+        }
+      })
+      .catch(function(){
+        show('error', 'Não conseguimos conectar agora. Fale com a gente direto:', fallbackLink(f));
+      })
+      .finally(function(){
+        clearTimeout(timer);
+        sending = false;
+        send.disabled = false;
+        send.textContent = 'Enviar mensagem';
+      });
   });
 })();
 

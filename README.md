@@ -27,18 +27,15 @@ python -m http.server 8000
 
 Cada envio registra o lead no CRM via `LEAD_ENDPOINT` (Supabase Edge Function
 `lead-intake`): `POST` com JSON em `Content-Type: text/plain`, sem preflight. O
-campo escondido `website` é honeypot. O envio usa `keepalive` e não espera
-resposta, para o WhatsApp abrir no mesmo clique.
+campo escondido `website` é honeypot.
 
-O formulário abre o WhatsApp (+55 47 98909-3759) com a mensagem pronta. O
-número fica no começo do `<script>` em `index.html`:
+O formulário espera a resposta e mostra o resultado na própria página:
 
-```js
-var WHATSAPP = '5547989093759'; // DDI + DDD + número, só dígitos
-```
-
-Com `WHATSAPP = ''`, o formulário abre o e-mail do visitante endereçado a
-`falecom@minervastudio.com.br`.
+- `200`: confirma o recebimento e limpa o formulário
+- `422`: pede para revisar os campos
+- `429`, `403`, outro erro ou falha de rede: mostra um link para o WhatsApp
+  (`WHATSAPP`) com a mensagem pronta, ou para o e-mail (`EMAIL`) se o número
+  estiver vazio
 
 ## Deploy
 
