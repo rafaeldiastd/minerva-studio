@@ -46,10 +46,6 @@ h2,h3{text-wrap:balance}
 
 .wrap{max-width:1440px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 
-/* Fólio: a linha miúda de revista que abre cada seção */
-.folio{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 24px;padding-block:18px;font-size:11px;font-weight:500;line-height:1.3;letter-spacing:.01em}
-.folio > :last-child{text-align:right}
-@media (max-width:700px){.folio{grid-template-columns:repeat(2,minmax(0,1fr))}.folio > :nth-child(2),.folio > :nth-child(3){display:none}}
 
 .meta{font-size:12px;line-height:1.5}
 .meta dt{font-weight:500}
@@ -77,7 +73,6 @@ h2,h3{text-wrap:balance}
 .nav a:hover{text-decoration:underline}
 @media (max-width:700px){.header{grid-template-columns:minmax(0,1fr)}.header__tag{display:none}.nav{grid-column:auto;justify-content:flex-start}}
 
-.value > .wrap,.services > .wrap{width:100%}
 
 /* Abertura */
 .hero{padding-bottom:0;overflow:hidden}
@@ -90,7 +85,6 @@ h2,h3{text-wrap:balance}
 .stack > span{display:block;overflow:hidden;padding-top:.14em;margin-top:-.14em}
 .stack > span > span{display:inline-block}
 .stack .l2{padding-left:9%}
-.stack .ghost{color:transparent;-webkit-text-stroke:1.5px var(--fg)}
 .badge{transform-origin:50% 50%;position:absolute;right:clamp(8px,8vw,140px);top:.05em;text-transform:none;width:clamp(96px,10vw,148px);height:auto;color:var(--fg)}
 .badge text{font-size:8.6px;font-weight:500;letter-spacing:.06em;fill:currentColor}
 .badge .dot{fill:var(--accent)}
@@ -98,7 +92,7 @@ h2,h3{text-wrap:balance}
 
 /* Manifesto, em layout de ficha de projeto */
 .manifesto{border-top:1px solid var(--line);padding-bottom:clamp(80px,10vw,140px)}
-.manifesto__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px;padding-top:clamp(32px,5vw,72px)}
+.manifesto__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px;padding-top:clamp(64px,8vw,120px)}
 .manifesto h2{grid-column:1 / span 2;font-size:clamp(34px,4.4vw,64px);font-weight:400;line-height:1;letter-spacing:-.035em;max-width:11ch}
 .manifesto__info{grid-column:2;grid-row:2;display:flex;flex-direction:column;gap:22px;align-self:end}
 .manifesto__info p{font-size:13px;line-height:1.55;max-width:38ch}
@@ -107,55 +101,45 @@ h2,h3{text-wrap:balance}
 .manifesto__sign{font-size:11px;color:var(--muted)}
 @media (max-width:900px){.manifesto__grid{grid-template-columns:minmax(0,1fr)}.manifesto h2,.manifesto__info,.manifesto__photo{grid-column:auto;grid-row:auto}.manifesto__photo{max-width:480px}}
 
-/* Valores: uma tela por palavra, como cartazes */
-.value{min-height:100svh;display:flex;flex-direction:column;border-top:1px solid var(--line);overflow:hidden}
-.value .rings{width:min(980px,130vw);left:50%;top:50%;transform:translate(-50%,-50%)}
-.value__body{flex:1;display:flex;position:relative;padding-block:clamp(40px,6vw,80px)}
-.value__note{font-size:14px;line-height:1.55;max-width:30ch}
-.value h2{font-weight:400;text-transform:uppercase;letter-spacing:-.05em;line-height:.84}
-.value--1 .value__body{flex-direction:column;justify-content:space-between;gap:48px}
-.value--1 .value__note{align-self:flex-end}
-.value--1 h2{font-size:clamp(52px,13.5vw,200px)}
-.value--1 h2 span{display:block}
-.value--1 h2 span + span{padding-left:22%}
-.value--2 .value__body{align-items:center;gap:clamp(32px,8vw,140px)}
-.value--2 h2{writing-mode:vertical-rl;transform:rotate(180deg);font-size:clamp(56px,min(12svh,14vw),150px);line-height:.9}
-.value--2 .value__note{margin-top:auto}
-.value--3 .value__body{flex-direction:column;justify-content:center;gap:40px}
-.value--3 .word{position:relative;display:inline-block;font-size:clamp(52px,14vw,206px)}
-.value--3 .word__ghost{position:absolute;left:.06em;top:-.2em;color:transparent;-webkit-text-stroke:1px var(--fg);opacity:.55}
-.value--3 h2{position:relative}
-.value--3 .value__note{margin-left:clamp(0px,40%,560px)}
+/* Valores: três cartazes lado a lado */
+.values{border-top:1px solid var(--line)}
+.values__in{padding-block:clamp(80px,10vw,140px);display:flex;flex-direction:column;gap:clamp(40px,5vw,64px)}
+.values__head{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.values__head .sec-title{grid-column:1 / span 2}
+.values__head .meta{grid-column:3}
+.values__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px)}
+.poster{position:relative;overflow:hidden;aspect-ratio:3 / 4.4;max-width:100%;border:1px solid var(--line);padding:clamp(20px,2.4vw,36px);display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.poster .rings{width:150%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.poster h3{position:relative;font-size:clamp(30px,4.3vw,64px);font-weight:400;line-height:.88;letter-spacing:-.05em;text-transform:uppercase}
+.poster h3 span{display:block}
+.poster h3 span + span{padding-left:18%}
+.poster p{position:relative;font-size:14px;line-height:1.55;max-width:28ch;align-self:flex-end}
+.poster__mark{position:absolute;right:10px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-size:10px;font-weight:500}
+@media (max-width:860px){.values__head{grid-template-columns:minmax(0,1fr)}.values__head .sec-title,.values__head .meta{grid-column:auto}.values__grid{grid-template-columns:minmax(0,1fr)}.poster{aspect-ratio:auto;min-height:360px}.poster h3{font-size:clamp(40px,12vw,64px)}}
 
-/* O que fazemos */
-.services{min-height:100svh;display:flex;flex-direction:column;border-top:1px solid var(--line)}
-.services__in{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(48px,7vh,96px);padding-block:clamp(56px,10vh,128px)}
-.services__head{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
-.services__head .sec-title{grid-column:1 / span 2}
-.services__head .meta{grid-column:3}
-.svc{display:flex;flex-direction:column;gap:clamp(36px,5vh,64px)}
-.svc-tabs{display:flex;flex-wrap:wrap;gap:8px clamp(28px,4vw,64px)}
-.svc-tabs button{font:inherit;font-size:clamp(22px,2.8vw,40px);font-weight:400;letter-spacing:-.03em;color:var(--muted);background:none;border:0;padding:8px 0;min-height:44px;cursor:pointer;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
-.svc-tabs button:hover{color:var(--fg)}
-.svc-tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--line)}
-.svc-panel{display:flex;flex-direction:column;gap:clamp(36px,5vh,64px)}
-.svc-desc{font-size:15px;font-style:italic;color:var(--muted);max-width:52ch}
+/* Serviços: uma tela inteira por serviço */
+.service{min-height:100svh;display:flex;border-top:1px solid var(--line)}
+.service > .wrap{width:100%}
+.service__in{display:flex;flex-direction:column;justify-content:space-between;gap:clamp(56px,8vh,112px);padding-block:clamp(64px,10vh,128px)}
+.service__head{display:flex;flex-direction:column;gap:20px}
+.service__name{font-size:clamp(44px,9vw,140px);font-weight:400;line-height:.88;letter-spacing:-.05em}
+.service__desc{font-size:clamp(16px,1.5vw,20px);font-style:italic;color:var(--muted);max-width:44ch;margin-left:clamp(0px,25%,360px)}
+.svc-block{display:flex;flex-direction:column;gap:clamp(32px,5vh,56px)}
 .svc-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
-.svc-step{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:0 0 18px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--hair);font:inherit;cursor:pointer;text-align:left;transition:color .2s}
-.svc-step__n{font-size:clamp(64px,10vw,156px);font-weight:300;line-height:.82;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:1px #8a8a8a}
+.svc-step{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:0 0 18px;background:none;border:0;border-bottom:1px solid var(--line);color:#b8b8b8;font:inherit;cursor:pointer;text-align:left;transition:color .2s}
+.svc-step__n{font-size:clamp(56px,8vw,128px);font-weight:300;line-height:.82;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
 .svc-step__t{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.svc-step:hover .svc-step__n{-webkit-text-stroke-color:var(--fg)}
-.svc-step[aria-pressed="true"]{border-bottom:5px solid var(--fg);padding-bottom:14px}
-.svc-step[aria-pressed="true"] .svc-step__n{color:var(--fg);-webkit-text-stroke-color:var(--fg)}
+.svc-step:hover{color:var(--muted)}
+.svc-step[aria-pressed="true"]{color:var(--fg);border-bottom:5px solid var(--fg);padding-bottom:14px}
 .svc-step[aria-pressed="true"] .svc-step__t{color:var(--fg)}
 .svc-detail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px 24px;min-height:3.4em}
 .svc-detail__k{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
 .svc-detail__p{grid-column:2 / span 3;font-size:clamp(22px,2.4vw,34px);font-weight:400;line-height:1.2;letter-spacing:-.02em;max-width:30ch}
-@media (max-width:700px){.services__head,.svc-detail{grid-template-columns:minmax(0,1fr)}.services__head .sec-title,.services__head .meta,.svc-detail__p{grid-column:auto}.svc-step__t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+@media (max-width:700px){.svc-detail{grid-template-columns:minmax(0,1fr)}.svc-detail__p{grid-column:auto}.service__desc{margin-left:0}.svc-step__t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 
 /* Dúvidas */
 .faq{border-top:1px solid var(--line);padding-bottom:clamp(80px,10vw,128px)}
-.faq__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 24px;padding-top:clamp(32px,5vw,72px)}
+.faq__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px 24px;padding-top:clamp(64px,8vw,120px)}
 .faq__grid .sec-title{grid-column:1}
 .faq__list{grid-column:2 / span 3;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
@@ -168,7 +152,7 @@ h2,h3{text-wrap:balance}
 
 /* Contato */
 .contact{border-top:1px solid var(--line);padding-bottom:clamp(80px,10vw,128px)}
-.contact__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px;padding-top:clamp(32px,5vw,72px)}
+.contact__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 24px;padding-top:clamp(64px,8vw,120px)}
 .contact__intro{grid-column:1 / span 2;display:flex;flex-direction:column;gap:24px}
 .contact__intro p{font-size:14px;color:var(--muted);max-width:34ch}
 .form{grid-column:3 / span 2;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 24px}
@@ -216,7 +200,7 @@ section[id]{scroll-margin-top:8px}
     <nav class="nav" aria-label="Principal">
       <a href="#manifesto">Manifesto</a>
       <a href="#valores">Valores</a>
-      <a href="#servicos">O que fazemos</a>
+      <a href="#servicos">Serviços</a>
       <a href="#faq">Dúvidas</a>
       <a href="#contato">Contato</a>
     </nav>
@@ -242,7 +226,7 @@ section[id]{scroll-margin-top:8px}
     <h1 class="stack" aria-label="Da ideia ao negócio no ar.">
       <span aria-hidden="true"><span>Da ideia</span></span>
       <span class="l2" aria-hidden="true"><span>ao negó—</span></span>
-      <span aria-hidden="true"><span class="ghost">cio no ar.</span></span>
+      <span aria-hidden="true"><span>cio no ar.</span></span>
       <svg class="badge js-badge" viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="badge-path" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
         <text><textPath href="#badge-path" textLength="286" lengthAdjust="spacingAndGlyphs">minerva studio · desenvolvimento · design · marketing ·</textPath></text>
@@ -254,7 +238,6 @@ section[id]{scroll-margin-top:8px}
 
 <section class="manifesto" id="manifesto" aria-labelledby="mf-t">
   <div class="wrap">
-    <div class="folio" aria-hidden="true"><span>minerva studio</span><span>Manifesto</span><span>Quem somos</span><span>01</span></div>
     <div class="manifesto__grid">
       <h2 id="mf-t">A gente começa com você.</h2>
       <div class="manifesto__info">
@@ -272,61 +255,96 @@ section[id]{scroll-margin-top:8px}
   </div>
 </section>
 
-<section class="value value--1" id="valores" aria-labelledby="v1">
-  <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
-  <div class="wrap"><div class="folio" aria-hidden="true"><span>minerva studio</span><span>Valores</span><span>Personalização</span><span>1 / 3</span></div></div>
-  <div class="wrap value__body">
-    <p class="value__note">Cada cliente tem uma realidade. Por isso cada estratégia nasce dos seus diferenciais, sem fórmula de marketing pronta.</p>
-    <h2 id="v1" aria-label="Personalização"><span aria-hidden="true">Personali—</span><span aria-hidden="true">zação</span></h2>
-  </div>
-  <span class="side-mark" aria-hidden="true">minerva studio</span>
-</section>
-
-<section class="value value--2" aria-labelledby="v2">
-  <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
-  <div class="wrap"><div class="folio" aria-hidden="true"><span>minerva studio</span><span>Valores</span><span>Excelência</span><span>2 / 3</span></div></div>
-  <div class="wrap value__body">
-    <h2 id="v2">Excelência</h2>
-    <p class="value__note">A gente revisa, aprende e melhora o tempo todo, para atender você cada vez melhor.</p>
-  </div>
-  <span class="side-mark" aria-hidden="true">minerva studio</span>
-</section>
-
-<section class="value value--3" aria-labelledby="v3">
-  <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
-  <div class="wrap"><div class="folio" aria-hidden="true"><span>minerva studio</span><span>Valores</span><span>Inovação</span><span>3 / 3</span></div></div>
-  <div class="wrap value__body">
-    <h2 id="v3"><span class="word"><span class="word__ghost js-ghost" aria-hidden="true">Inovação</span>Inovação</span></h2>
-    <p class="value__note">O mercado muda rápido. A gente muda junto, e leva o seu negócio com a gente.</p>
-  </div>
-  <span class="side-mark" aria-hidden="true">minerva studio</span>
-</section>
-
-<section class="services" id="servicos" aria-labelledby="sv-t">
-  <div class="wrap"><div class="folio" aria-hidden="true"><span>minerva studio</span><span>O que fazemos</span><span>Passo a passo</span><span>02</span></div></div>
-  <div class="wrap services__in">
-    <div class="services__head">
-      <h2 id="sv-t" class="sec-title">O que fazemos</h2>
-      <p class="meta"><em>Escolha um serviço e clique em cada número para ver como o projeto anda.</em></p>
+<section class="values" id="valores" aria-labelledby="vl-t">
+  <div class="wrap values__in">
+    <div class="values__head">
+      <h2 id="vl-t" class="sec-title">Valores</h2>
+      <p class="meta"><em>O que guia cada projeto, do primeiro café à entrega.</em></p>
     </div>
-    <div class="svc">
-      <div class="svc-tabs" role="tablist" aria-label="Serviços">
-        <button type="button" role="tab" id="tab-0" aria-controls="svc-panel" aria-selected="true">Desenvolvimento</button>
-        <button type="button" role="tab" id="tab-1" aria-controls="svc-panel" aria-selected="false" tabindex="-1">Marketing e Branding</button>
-        <button type="button" role="tab" id="tab-2" aria-controls="svc-panel" aria-selected="false" tabindex="-1">Tráfego Pago</button>
+    <div class="values__grid">
+      <article class="poster">
+        <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
+        <h3 aria-label="Personalização"><span aria-hidden="true">Personali—</span><span aria-hidden="true">zação</span></h3>
+        <p>Cada cliente tem uma realidade. Por isso cada estratégia nasce dos seus diferenciais, sem fórmula de marketing pronta.</p>
+        <span class="poster__mark" aria-hidden="true">minerva studio</span>
+      </article>
+      <article class="poster">
+        <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
+        <h3>Excelência</h3>
+        <p>A gente revisa, aprende e melhora o tempo todo, para atender você cada vez melhor.</p>
+        <span class="poster__mark" aria-hidden="true">minerva studio</span>
+      </article>
+      <article class="poster">
+        <svg class="rings" viewBox="0 0 1000 1000" aria-hidden="true"><circle cx="500" cy="500" r="120"/><circle cx="500" cy="500" r="240"/><circle cx="500" cy="500" r="360"/><circle cx="500" cy="500" r="480"/></svg>
+        <h3>Inovação</h3>
+        <p>O mercado muda rápido. A gente muda junto, e leva o seu negócio com a gente.</p>
+        <span class="poster__mark" aria-hidden="true">minerva studio</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="service" id="servicos" aria-labelledby="sv-0">
+  <div class="wrap service__in">
+    <div class="service__head">
+      <p class="label label--accent">O que fazemos · 1 de 3</p>
+      <h2 id="sv-0" class="service__name">Desenvolvimento</h2>
+      <p class="service__desc">Sites, lojas e sistemas feitos para o seu negócio funcionar de verdade.</p>
+    </div>
+    <div class="svc-block">
+      <div class="svc-steps" role="group" aria-label="Passos de Desenvolvimento">
+          <button type="button" class="svc-step" aria-pressed="true" data-k="Imersão" data-p="Entendemos o seu negócio e o que o site precisa resolver."><span class="svc-step__n">1</span><span class="svc-step__t">Imersão</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Planejamento" data-p="Definimos páginas, funções e o caminho de quem visita."><span class="svc-step__n">2</span><span class="svc-step__t">Planejamento</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Desenvolvimento" data-p="Construímos em etapas, com você vendo cada avanço."><span class="svc-step__n">3</span><span class="svc-step__t">Desenvolvimento</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Entrega" data-p="Testamos, publicamos e ficamos por perto depois."><span class="svc-step__n">4</span><span class="svc-step__t">Entrega</span></button>
       </div>
-      <div class="svc-panel" id="svc-panel" role="tabpanel" aria-labelledby="tab-0">
-        <p class="svc-desc" id="svc-desc">Sites, lojas e sistemas feitos para o seu negócio funcionar de verdade.</p>
-        <div class="svc-steps" role="group" aria-label="Passos">
-          <button type="button" class="svc-step" aria-pressed="true"><span class="svc-step__n">1</span><span class="svc-step__t">Imersão</span></button>
-          <button type="button" class="svc-step" aria-pressed="false"><span class="svc-step__n">2</span><span class="svc-step__t">Planejamento</span></button>
-          <button type="button" class="svc-step" aria-pressed="false"><span class="svc-step__n">3</span><span class="svc-step__t">Desenvolvimento</span></button>
-          <button type="button" class="svc-step" aria-pressed="false"><span class="svc-step__n">4</span><span class="svc-step__t">Entrega</span></button>
-        </div>
-        <div class="svc-detail" aria-live="polite">
-          <p class="svc-detail__k" id="svc-k">Passo 1 de 4 · Imersão</p>
-          <p class="svc-detail__p" id="svc-p">Entendemos o seu negócio e o que o site precisa resolver.</p>
-        </div>
+      <div class="svc-detail" aria-live="polite">
+        <p class="svc-detail__k">Passo 1 de 4 · Imersão</p>
+        <p class="svc-detail__p">Entendemos o seu negócio e o que o site precisa resolver.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="service" id="servico-marketing" aria-labelledby="sv-1">
+  <div class="wrap service__in">
+    <div class="service__head">
+      <p class="label label--accent">O que fazemos · 2 de 3</p>
+      <h2 id="sv-1" class="service__name">Marketing e Branding</h2>
+      <p class="service__desc">Marca, identidade visual e comunicação para a sua empresa ser lembrada.</p>
+    </div>
+    <div class="svc-block">
+      <div class="svc-steps" role="group" aria-label="Passos de Marketing e Branding">
+          <button type="button" class="svc-step" aria-pressed="true" data-k="Imersão" data-p="Conversamos sobre você, o seu público e onde quer chegar."><span class="svc-step__n">1</span><span class="svc-step__t">Imersão</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Brainstorm" data-p="Juntamos ideias, referências e caminhos possíveis."><span class="svc-step__n">2</span><span class="svc-step__t">Brainstorm</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Pesquisa" data-p="Olhamos o mercado e a concorrência para achar o seu espaço."><span class="svc-step__n">3</span><span class="svc-step__t">Pesquisa</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Criação" data-p="Damos forma à marca e entregamos tudo pronto para usar."><span class="svc-step__n">4</span><span class="svc-step__t">Criação</span></button>
+      </div>
+      <div class="svc-detail" aria-live="polite">
+        <p class="svc-detail__k">Passo 1 de 4 · Imersão</p>
+        <p class="svc-detail__p">Conversamos sobre você, o seu público e onde quer chegar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="service" id="servico-trafego" aria-labelledby="sv-2">
+  <div class="wrap service__in">
+    <div class="service__head">
+      <p class="label label--accent">O que fazemos · 3 de 3</p>
+      <h2 id="sv-2" class="service__name">Tráfego Pago</h2>
+      <p class="service__desc">Anúncios que levam as pessoas certas até você.</p>
+    </div>
+    <div class="svc-block">
+      <div class="svc-steps" role="group" aria-label="Passos de Tráfego Pago">
+          <button type="button" class="svc-step" aria-pressed="true" data-k="Diagnóstico" data-p="Vemos onde o seu público está e o que já foi feito."><span class="svc-step__n">1</span><span class="svc-step__t">Diagnóstico</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Estratégia" data-p="Definimos objetivo, canais e investimento."><span class="svc-step__n">2</span><span class="svc-step__t">Estratégia</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Campanhas" data-p="Criamos e publicamos os anúncios."><span class="svc-step__n">3</span><span class="svc-step__t">Campanhas</span></button>
+          <button type="button" class="svc-step" aria-pressed="false" data-k="Ajustes" data-p="Acompanhamos os resultados e melhoramos toda semana."><span class="svc-step__n">4</span><span class="svc-step__t">Ajustes</span></button>
+      </div>
+      <div class="svc-detail" aria-live="polite">
+        <p class="svc-detail__k">Passo 1 de 4 · Diagnóstico</p>
+        <p class="svc-detail__p">Vemos onde o seu público está e o que já foi feito.</p>
       </div>
     </div>
   </div>
@@ -334,7 +352,6 @@ section[id]{scroll-margin-top:8px}
 
 <section class="faq" id="faq" aria-labelledby="fq-t">
   <div class="wrap">
-    <div class="folio" aria-hidden="true"><span>minerva studio</span><span>Dúvidas</span><span>Perguntas comuns</span><span>03</span></div>
     <div class="faq__grid">
       <h2 id="fq-t" class="sec-title">Dúvidas</h2>
       <div class="faq__list">
@@ -361,7 +378,6 @@ section[id]{scroll-margin-top:8px}
 
 <section class="contact" id="contato" aria-labelledby="ct-t">
   <div class="wrap">
-    <div class="folio" aria-hidden="true"><span>minerva studio</span><span>Contato</span><span>Vamos conversar</span><span>04</span></div>
     <div class="contact__grid">
       <div class="contact__intro">
         <h2 id="ct-t" class="sec-title">Vamos conversar?</h2>
@@ -424,7 +440,7 @@ section[id]{scroll-margin-top:8px}
 <script>
 // Formulário: valida no navegador e abre o WhatsApp com a mensagem pronta.
 // Sem número configurado, cai para o e-mail.
-var WHATSAPP = ''; // só dígitos, com DDI e DDD. Ex.: '5511999999999'
+var WHATSAPP = '5547989093759'; // só dígitos, com DDI e DDD
 var EMAIL = 'falecom@minervastudio.com.br';
 (function(){
   var form = document.getElementById('contact-form');
@@ -453,11 +469,11 @@ var EMAIL = 'falecom@minervastudio.com.br';
       '',
       'Nome: ' + f.nome.value.trim(),
       'E-mail: ' + f.email.value.trim(),
-      f.whatsapp.value ? 'WhatsApp: ' + f.whatsapp.value : '',
+      f.whatsapp.value ? 'WhatsApp: ' + f.whatsapp.value : null,
       'Serviço: ' + (f.servico.value || 'Ainda não sei'),
       '',
       f.mensagem.value.trim()
-    ].filter(function(l, i, a){ return l !== '' || a[i - 1] !== ''; });
+    ].filter(function(l){ return l !== null; });
     var texto = linhas.join('\n');
     if(WHATSAPP){
       window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
@@ -471,60 +487,21 @@ var EMAIL = 'falecom@minervastudio.com.br';
 
 document.getElementById('ano').textContent = new Date().getFullYear();
 
-// Serviços: abas e passos. O HTML já mostra o estado inicial; o script só troca o conteúdo.
+// Serviços: cada tela tem os seus passos. O HTML já mostra o passo 1; o clique só troca o texto.
 (function(){
-  var data = [
-    {desc:"Sites, lojas e sistemas feitos para o seu negócio funcionar de verdade.", steps:[
-      ["Imersão","Entendemos o seu negócio e o que o site precisa resolver."],
-      ["Planejamento","Definimos páginas, funções e o caminho de quem visita."],
-      ["Desenvolvimento","Construímos em etapas, com você vendo cada avanço."],
-      ["Entrega","Testamos, publicamos e ficamos por perto depois."]]},
-    {desc:"Marca, identidade visual e comunicação para a sua empresa ser lembrada.", steps:[
-      ["Imersão","Conversamos sobre você, o seu público e onde quer chegar."],
-      ["Brainstorm","Juntamos ideias, referências e caminhos possíveis."],
-      ["Pesquisa","Olhamos o mercado e a concorrência para achar o seu espaço."],
-      ["Criação","Damos forma à marca e entregamos tudo pronto para usar."]]},
-    {desc:"Anúncios que levam as pessoas certas até você.", steps:[
-      ["Diagnóstico","Vemos onde o seu público está e o que já foi feito."],
-      ["Estratégia","Definimos objetivo, canais e investimento."],
-      ["Campanhas","Criamos e publicamos os anúncios."],
-      ["Ajustes","Acompanhamos os resultados e melhoramos toda semana."]]}
-  ];
-  var tabs = document.querySelectorAll('.svc-tabs [role="tab"]');
-  var steps = document.querySelectorAll('.svc-step');
-  var panel = document.getElementById('svc-panel');
-  var desc = document.getElementById('svc-desc'), k = document.getElementById('svc-k'), p = document.getElementById('svc-p');
-  var cur = 0, step = 0;
   var motion = window.gsap && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function render(){
-    var s = data[cur];
-    desc.textContent = s.desc;
+  document.querySelectorAll('.service').forEach(function(sec){
+    var steps = sec.querySelectorAll('.svc-step');
+    var k = sec.querySelector('.svc-detail__k'), p = sec.querySelector('.svc-detail__p');
     steps.forEach(function(b, i){
-      b.querySelector('.svc-step__t').textContent = s.steps[i][0];
-      b.setAttribute('aria-pressed', i === step);
-    });
-    k.textContent = 'Passo ' + (step + 1) + ' de 4 · ' + s.steps[step][0];
-    p.textContent = s.steps[step][1];
-    if(motion) gsap.fromTo(p, {y:10, opacity:.3}, {y:0, opacity:1, duration:.35, ease:"power2.out"});
-  }
-  function selectTab(i, focus){
-    cur = i; step = 0;
-    tabs.forEach(function(t, j){ t.setAttribute('aria-selected', j === i); t.tabIndex = j === i ? 0 : -1; });
-    panel.setAttribute('aria-labelledby', tabs[i].id);
-    if(focus) tabs[i].focus();
-    render();
-  }
-  tabs.forEach(function(t, i){
-    t.addEventListener('click', function(){ selectTab(i); });
-    t.addEventListener('keydown', function(e){
-      if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
-        e.preventDefault();
-        selectTab((i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true);
-      }
+      b.addEventListener('click', function(){
+        steps.forEach(function(x){ x.setAttribute('aria-pressed', x === b); });
+        k.textContent = 'Passo ' + (i + 1) + ' de 4 · ' + b.dataset.k;
+        p.textContent = b.dataset.p;
+        if(motion) gsap.fromTo(p, {y:10, opacity:.3}, {y:0, opacity:1, duration:.35, ease:"power2.out"});
+      });
     });
   });
-  steps.forEach(function(b, i){ b.addEventListener('click', function(){ step = i; render(); }); });
 })();
 
 // Movimento: a pilha da abertura sobe uma vez; o selo gira e o contorno de "Inovação" desliza com a rolagem.
@@ -533,8 +510,6 @@ document.getElementById('ano').textContent = new Date().getFullYear();
   gsap.registerPlugin(ScrollTrigger);
   gsap.from(".stack > span > span", {yPercent:105, duration:.9, stagger:.09, ease:"power3.out"});
   gsap.to(".js-badge", {rotate:240, ease:"none", scrollTrigger:{trigger:".hero", start:"top top", end:"bottom top", scrub:true}});
-  gsap.fromTo(".js-ghost", {x:"-.08em", y:".1em"}, {x:".12em", y:"-.08em", ease:"none",
-    scrollTrigger:{trigger:".value--3", start:"top bottom", end:"bottom top", scrub:true}});
 })();
 </script>
 </body>

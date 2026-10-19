@@ -25,14 +25,14 @@ python -m http.server 8000
 
 ## Formulário de contato
 
-O formulário abre o WhatsApp com a mensagem pronta. Configure o número no
-começo do `<script>` em `index.html`:
+O formulário abre o WhatsApp (+55 47 98909-3759) com a mensagem pronta. O
+número fica no começo do `<script>` em `index.html`:
 
 ```js
-var WHATSAPP = '5511999999999'; // DDI + DDD + número, só dígitos
+var WHATSAPP = '5547989093759'; // DDI + DDD + número, só dígitos
 ```
 
-Sem número configurado, o formulário abre o e-mail do visitante endereçado a
+Com `WHATSAPP = ''`, o formulário abre o e-mail do visitante endereçado a
 `falecom@minervastudio.com.br`.
 
 ## Deploy
