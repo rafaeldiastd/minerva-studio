@@ -1,0 +1,8 @@
+# Referências de design (contêm material de clientes, não publicar)
+ref/
+
+# Configuração local
+.claude/
+
+Thumbs.db
+.DS_Store
