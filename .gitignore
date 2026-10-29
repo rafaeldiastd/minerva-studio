@@ -5,6 +5,9 @@ ref/
 assets/img/jenni.png
 assets/img/rafa.png
 
+# Arquivos da identidade visual (texturas em dither para materiais, fora do site)
+identidade/
+
 # Configuração local
 .claude/
 

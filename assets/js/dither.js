@@ -264,17 +264,11 @@
     }
   });
 
-  // Converte as texturas que estão na página; o portfólio, montado depois a partir
-  // do JSON, avisa com o evento 'dither:scan' para as suas entrarem também
-  const scan = () => {
-    for (const img of document.querySelectorAll('img[data-dither]')) {
-      const item = adopt(img);
-      items.push(item);
-      io.observe(item.canvas);
-      ro.observe(item.canvas);
-    }
-  };
-
-  scan();
-  document.addEventListener('dither:scan', scan);
+  // Converte as texturas que estão na página
+  for (const img of document.querySelectorAll('img[data-dither]')) {
+    const item = adopt(img);
+    items.push(item);
+    io.observe(item.canvas);
+    ro.observe(item.canvas);
+  }
 })();
