@@ -1,6 +1,10 @@
 # Referências de design (contêm material de clientes, não publicar)
 ref/
 
+# Ilustrações originais da equipe (o site usa as versões .webp)
+assets/img/jenni.png
+assets/img/rafa.png
+
 # Configuração local
 .claude/
 

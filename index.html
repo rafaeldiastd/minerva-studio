@@ -24,9 +24,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/main.css?v=2">
   <script>document.documentElement.classList.add('js')</script>
-  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js?v=2" defer></script>
+  <script src="assets/js/dither.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -95,7 +96,7 @@
 
     <!-- Cabeçalho -->
     <section class="hero" id="inicio" data-theme="dark" aria-labelledby="hero-title">
-      <img class="hero__noise" src="assets/img/noise-2.webp" alt="" width="1568" height="440">
+      <img class="hero__noise" src="assets/img/noise-2.webp" alt="" data-dither width="1568" height="440">
       <div class="wrap hero__inner">
         <div class="hero__fit">
           <h1 class="display hero__title" id="hero-title">
@@ -115,38 +116,33 @@
 
     <!-- O que fazemos -->
     <section class="services" id="o-que-fazemos" data-theme="light" aria-labelledby="services-title">
-      <div class="wrap services__grid">
+      <div class="wrap">
         <div class="services__head">
-          <img class="services__noise" src="assets/img/noise-1.webp" alt="" width="888" height="1048" loading="lazy" decoding="async">
+          <img class="services__noise" src="assets/img/noise-1.webp" alt="" data-dither width="888" height="1048" loading="lazy" decoding="async">
           <h2 class="display services__title" id="services-title">O que<br> fazemos</h2>
         </div>
-        <ul class="services__list">
-          <li><span class="bar">Desenvolvimento</span></li>
-          <li><span class="bar">Marketing e Branding</span></li>
-          <li><span class="bar">Tráfego Pago</span></li>
-          <li><span class="bar">Sob Medida</span></li>
-        </ul>
+        <ol class="services__list">
+          <li class="service"><span class="service__num" aria-hidden="true">01</span><span class="service__name">Desenvolvimento</span></li>
+          <li class="service"><span class="service__num" aria-hidden="true">02</span><span class="service__name">Marketing e Branding</span></li>
+          <li class="service"><span class="service__num" aria-hidden="true">03</span><span class="service__name">Tráfego Pago</span></li>
+          <li class="service"><span class="service__num" aria-hidden="true">04</span><span class="service__name">Sob Medida</span></li>
+        </ol>
       </div>
-      <svg class="sunburst services__sun" aria-hidden="true" focusable="false"><use href="#sunburst"/></svg>
     </section>
 
     <!-- Diferencial -->
     <section class="diff" data-theme="light" aria-labelledby="diff-title">
-      <div class="diff__panel">
-        <div class="diff__outline" aria-hidden="true">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
-            <path d="M0 0 H42 C88 0 118 26 118 50 C118 74 88 100 42 100 H0"/>
-            <path d="M12 16 V100 M12 16 H46 C80 16 101 34 101 56 C101 80 80 96 46 96 H12"/>
-          </svg>
+      <div class="wrap">
+        <div class="diff__fit">
+          <h2 class="display diff__title" id="diff-title">
+            <span class="diff__row"><span class="diff__word">Conversa</span> <span class="diff__word">de gente,</span></span>
+            <span class="diff__row"><span class="diff__word">não de</span> <span class="diff__word diff__word--ghost" data-text="agência.">agência.</span></span>
+          </h2>
         </div>
-        <p class="label diff__label">Diferencial</p>
-        <h2 class="diff__title" id="diff-title"><span class="bar">Conversa de gente, não de agência.</span></h2>
-        <svg class="sunburst diff__sun" aria-hidden="true" focusable="false"><use href="#sunburst"/></svg>
-      </div>
-      <div class="diff__side">
-        <div class="diff__rule" aria-hidden="true"></div>
-        <div class="diff__body">
-          <p class="lead">Cada projeto começa entendendo o seu negócio, sem vender um pacote pronto. Explicamos tudo em linguagem simples, sem termos técnicos, para que você sempre saiba o que está sendo feito e por quê, e decida com segurança.</p>
+
+        <div class="diff__foot">
+          <svg class="sunburst diff__sun" aria-hidden="true" focusable="false"><use href="#sunburst"/></svg>
+          <p class="lead diff__lead">Cada projeto começa entendendo o seu negócio, sem vender um pacote pronto. Explicamos tudo em linguagem simples, sem termos técnicos, para que você sempre saiba o que está sendo feito e por quê, e decida com segurança.</p>
         </div>
       </div>
     </section>
@@ -158,37 +154,21 @@
           <h2 class="label" id="manifesto-title">Manifesto</h2>
         </div>
 
-        <p class="manifesto__statement">Um site bonito, mas sem estratégia, não traz clientes. Um anúncio que leva para uma página fraca desperdiça o seu dinheiro. E uma receita de marketing igual para todas as empresas dificilmente vai funcionar para a sua.</p>
+        <div class="manifesto__text">
+          <p class="manifesto__statement" data-reveal>Um site bonito, mas <mark>sem estratégia</mark>, não traz clientes. Um anúncio que leva para uma <mark>página fraca</mark> desperdiça o seu dinheiro. E uma <mark>receita</mark> de marketing igual para todas as empresas dificilmente vai funcionar para a sua.</p>
 
-        <div class="manifesto__grid">
-          <p class="manifesto__body lead"><strong>Por isso, no Minerva Studio, não começamos pelo visual.</strong> Antes de tudo, queremos entender o que você vende, para quem vende e por que um cliente escolheria você. Com isso claro, a marca, o site e as campanhas nascem certos, falando a mesma língua, trabalhando juntos para o sucesso do seu projeto.</p>
+          <div class="manifesto__grid">
+            <p class="manifesto__body lead" data-reveal><strong>Por isso, no Minerva Studio, não começamos pelo visual.</strong> Antes de tudo, queremos entender o que você vende, para quem vende e por que um cliente escolheria você. Com isso claro, a marca, o site e as campanhas nascem certos, falando a mesma língua, trabalhando juntos para o sucesso do seu projeto.</p>
+          </div>
         </div>
-
-        <ol class="flow" aria-label="Primeiro a estratégia; depois marca, site e campanhas trabalhando juntos">
-          <li class="flow__step">
-            <span class="flow__cap" aria-hidden="true">Antes de tudo</span>
-            <span class="flow__name">Estratégia</span>
-          </li>
-          <li class="flow__step flow__step--joined">
-            <span class="flow__cap flow__cap--wide" aria-hidden="true">Falando a mesma língua</span>
-            <span class="flow__name">Marca</span>
-          </li>
-          <li class="flow__step flow__step--joined">
-            <span class="flow__name">Site</span>
-          </li>
-          <li class="flow__step flow__step--end">
-            <span class="flow__name">Campanhas</span>
-          </li>
-        </ol>
       </div>
-      <img class="manifesto__noise" src="assets/img/noise.webp" alt="" width="2164" height="412" loading="lazy" decoding="async">
     </section>
 
     <!-- No que acreditamos -->
     <section class="beliefs" id="no-que-acreditamos" data-theme="light" aria-labelledby="beliefs-title">
       <div class="wrap beliefs__grid">
         <div class="beliefs__head">
-          <img class="beliefs__noise" src="assets/img/noise-4.webp" alt="" width="972" height="1020" loading="lazy" decoding="async">
+          <img class="beliefs__noise" src="assets/img/noise-4.webp" alt="" data-dither width="972" height="1020" loading="lazy" decoding="async">
           <h2 class="display beliefs__title" id="beliefs-title">No que<br> acreditamos</h2>
         </div>
         <ul class="beliefs__list">
@@ -213,7 +193,7 @@
     </section>
 
     <!-- Portfólio -->
-    <section class="work" id="projetos" data-theme="dark" aria-labelledby="work-title">
+    <section class="work" id="projetos" data-theme="dark" aria-labelledby="work-title" hidden>
       <div class="wrap">
         <div class="work__head">
           <h2 class="display work__title" id="work-title" aria-label="Projetos">
@@ -223,37 +203,8 @@
           <p class="work__intro lead">Alguns trabalhos que tiramos do papel.</p>
         </div>
 
-        <!-- TODO: substituir pelos projetos reais (imagem, nome e serviços) -->
-        <ul class="work__grid">
-          <li class="project">
-            <div class="project__media"><img src="assets/img/noise-3.webp" alt="" width="1548" height="520" loading="lazy" decoding="async"></div>
-            <div class="project__meta">
-              <h3 class="project__name">Nome do projeto</h3>
-              <p class="project__tags">Desenvolvimento</p>
-            </div>
-          </li>
-          <li class="project">
-            <div class="project__media"><img src="assets/img/noise-1.webp" alt="" width="888" height="1048" loading="lazy" decoding="async"></div>
-            <div class="project__meta">
-              <h3 class="project__name">Nome do projeto</h3>
-              <p class="project__tags">Marketing e Branding</p>
-            </div>
-          </li>
-          <li class="project">
-            <div class="project__media"><img src="assets/img/noise-4.webp" alt="" width="972" height="1020" loading="lazy" decoding="async"></div>
-            <div class="project__meta">
-              <h3 class="project__name">Nome do projeto</h3>
-              <p class="project__tags">Tráfego Pago</p>
-            </div>
-          </li>
-          <li class="project">
-            <div class="project__media"><img src="assets/img/noise-2.webp" alt="" width="1568" height="440" loading="lazy" decoding="async"></div>
-            <div class="project__meta">
-              <h3 class="project__name">Nome do projeto</h3>
-              <p class="project__tags">Sob Medida</p>
-            </div>
-          </li>
-        </ul>
+        <!-- Cards montados por main.js a partir de projetos.json -->
+        <ul class="work__grid"></ul>
       </div>
     </section>
 
@@ -267,21 +218,21 @@
           <div class="team__people">
             <article class="person">
               <div class="person__head">
-                <h3 class="person__name"><span class="bar">Jenni</span><br><span class="bar">Grass</span></h3>
+                <h3 class="person__name" data-photo="assets/img/jenni.webp"><span class="bar">Jenni</span><br><span class="bar">Grass</span></h3>
                 <p class="person__role"><span class="mark" aria-hidden="true"></span>Marketing e estratégia</p>
               </div>
               <p class="person__bio">Especialista em marketing, formada pela Universidade do Vale do Itajaí, com <strong>mais de 8 anos liderando projetos no Brasil e nos Estados Unidos</strong>. Ajuda empresas a estruturar modelos de negócio lucrativos e a atrair os clientes certos com estratégia e tráfego pago.</p>
             </article>
             <article class="person">
               <div class="person__head">
-                <h3 class="person__name"><span class="bar">Rafael</span><br><span class="bar">Dias</span></h3>
+                <h3 class="person__name" data-photo="assets/img/rafa.webp"><span class="bar">Rafael</span><br><span class="bar">Dias</span></h3>
                 <p class="person__role"><span class="mark" aria-hidden="true"></span>Design e desenvolvimento</p>
               </div>
               <p class="person__bio"><strong>Há 12 anos criando marcas e campanhas.</strong> Une design marcante e tecnologia para construir sites, sistemas e plataformas, que passam credibilidade e transformam visitantes em clientes.</p>
             </article>
           </div>
           <div class="team__mark" aria-hidden="true">
-            <img class="team__noise" src="assets/img/noise-3.webp" alt="" width="1548" height="520" loading="lazy" decoding="async">
+            <img class="team__noise" src="assets/img/noise-3.webp" alt="" data-dither width="1548" height="520" loading="lazy" decoding="async">
             <img class="team__logo" src="assets/img/logo-curta-preta.webp" alt="" width="1082" height="742" loading="lazy" decoding="async">
           </div>
         </div>
@@ -296,7 +247,7 @@
     <div class="wrap">
       <div class="footer__cta">
         <h2 class="display footer__title"><span class="bar">Vamos tirar seu projeto do papel?</span></h2>
-        <a class="btn btn--light btn--lg" href="https://wa.me/5547989093759" target="_blank" rel="noopener"><span class="btn__mark" aria-hidden="true"></span>Falar no WhatsApp</a>
+        <a class="btn btn--light btn--lg" href="https://wa.me/555193784268" target="_blank" rel="noopener"><span class="btn__mark" aria-hidden="true"></span>Falar no WhatsApp</a>
         <svg class="sunburst footer__sun" aria-hidden="true" focusable="false"><use href="#sunburst"/></svg>
       </div>
 
@@ -317,19 +268,18 @@
         <div class="footer__col">
           <h3 class="label footer__heading">Contato</h3>
           <ul class="footer__links">
-            <li><a href="https://wa.me/5547989093759" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://wa.me/555193784268" target="_blank" rel="noopener">WhatsApp</a></li>
             <li><a href="mailto:falecom@minervastudio.com.br">E-mail</a></li>
             <li><a href="https://instagram.com/minerva.stdo" target="_blank" rel="noopener">Instagram</a></li>
           </ul>
         </div>
       </div>
 
-      <img class="footer__wordmark" src="assets/img/logo-branca.webp" alt="Minerva Studio" width="2129" height="397" loading="lazy" decoding="async">
-
       <div class="footer__legal">
         <p>© 2026 Minerva Studio. Todos os direitos reservados.</p>
         <p>CNPJ 48.653.863/0001-94</p>
         <a href="#">Política de privacidade</a>
+        <img class="footer__logo" src="assets/img/logo-branca.webp" alt="Minerva Studio" width="2129" height="397" loading="lazy" decoding="async">
       </div>
     </div>
   </footer>
