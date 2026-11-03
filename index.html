@@ -1,15 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LWZMHDKPG6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-LWZMHDKPG6');
-  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Minerva Studio | Crescimento com direção.</title>
@@ -33,10 +24,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
-  <link rel="stylesheet" href="assets/css/main.css?v=3">
+  <link rel="stylesheet" href="assets/css/main.css?v=4">
   <script>document.documentElement.classList.add('js')</script>
-  <script src="assets/js/main.js?v=3" defer></script>
-  <script src="assets/js/dither.js?v=3" defer></script>
+  <!-- Google Analytics, só depois do aceite no aviso de cookies -->
+  <script src="assets/js/consent.js?v=4" defer></script>
+  <script src="assets/js/main.js?v=4" defer></script>
+  <script src="assets/js/dither.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -235,7 +228,7 @@
   </main>
 
   <!-- Rodapé -->
-  <!-- TODO: link do LinkedIn e página de Política de privacidade -->
+  <!-- TODO: link do LinkedIn -->
   <footer class="footer" id="contato" data-theme="dark">
     <div class="wrap">
       <div class="footer__cta">
@@ -271,10 +264,20 @@
       <div class="footer__legal">
         <p>© 2026 Minerva Studio. Todos os direitos reservados.</p>
         <p>CNPJ 48.653.863/0001-94</p>
-        <a href="#">Política de privacidade</a>
+        <a href="privacidade.html">Política de privacidade</a>
+        <button class="footer__cookies" type="button" data-cookies-open>Preferências de cookies</button>
         <img class="footer__logo" src="assets/img/logo-branca.webp" alt="Minerva Studio" width="2129" height="397" loading="lazy" decoding="async">
       </div>
     </div>
   </footer>
+
+  <!-- Aviso de cookies: aparece até o visitante escolher (consent.js) -->
+  <section class="cookies" data-cookies aria-label="Aviso de cookies" hidden>
+    <p>Usamos cookies do Google Analytics para entender como o site é usado. Eles só são ativados se você aceitar. <a href="privacidade.html#cookies">Saiba mais</a></p>
+    <div class="cookies__actions">
+      <button class="btn btn--outline" type="button" data-cookies-choice="recusado">Recusar</button>
+      <button class="btn btn--light" type="button" data-cookies-choice="aceito">Aceitar</button>
+    </div>
+  </section>
 </body>
 </html>

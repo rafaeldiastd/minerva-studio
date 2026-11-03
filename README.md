@@ -9,6 +9,7 @@ https://minervastudio.com.br/
 
 ```
 index.html            página principal
+privacidade.html      política de privacidade
 404.html              página de erro
 favicon.png
 apple-touch-icon.png
@@ -17,6 +18,7 @@ CNAME                 domínio do GitHub Pages (não remover)
 assets/
   css/main.css        estilos
   js/main.js          header, menu mobile e animações
+  js/consent.js       aviso de cookies e Google Analytics (só depois do aceite)
   js/dither.js        texturas de pontos em dither (canvas) que reagem ao cursor
   img/                logos, texturas de pontos e imagem de compartilhamento
 ```
@@ -31,7 +33,18 @@ python -m http.server 4321
 
 ## Pendências
 
-- Link do LinkedIn e página de Política de privacidade
+- Link do LinkedIn
+
+## Cookies e Google Analytics
+
+O Google Analytics (`G-LWZMHDKPG6`, definido em `assets/js/consent.js`) só carrega
+depois que o visitante aceita o aviso de cookies. A escolha fica no `localStorage`
+do navegador (`minerva-cookies`) e pode ser trocada pelo botão "Preferências de
+cookies" no rodapé. A página 404 não mostra o aviso: só carrega o Analytics para
+quem já aceitou.
+
+Ao incluir outra ferramenta que grave cookies ou colete dados (pixel de anúncio,
+chat etc.), ela também precisa esperar o aceite e entrar em `privacidade.html`.
 
 ## Deploy
 

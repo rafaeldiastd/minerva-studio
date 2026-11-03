@@ -204,6 +204,7 @@ canvas.dither {
 
 .btn--light { --btn-bg: var(--white); --btn-fg: var(--black); }
 .btn--dark { --btn-bg: var(--black); --btn-fg: var(--white); }
+.btn--outline { --btn-bg: transparent; --btn-fg: var(--white); border-color: var(--white); }
 
 .btn--lg {
   font-size: clamp(1rem, 0.9rem + 0.4vw, 1.1875rem);
@@ -980,7 +981,18 @@ html.menu-open { overflow: hidden; }
   line-height: 1.5;
 }
 
-.footer__legal a:hover { color: var(--white); }
+.footer__legal a:hover,
+.footer__cookies:hover { color: var(--white); }
+
+.footer__cookies {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
 
 .footer__logo {
   width: auto;
@@ -992,6 +1004,227 @@ html.menu-open { overflow: hidden; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .footer__col--about { grid-column: 1 / -1; }
   .footer__sun { bottom: auto; top: -5.5rem; right: -3rem; }
+}
+
+/* Aviso de cookies (consent.js)
+   ========================================================================== */
+
+/* abaixo do header e do menu mobile: com o menu aberto, o aviso espera por baixo */
+.cookies {
+  position: fixed;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 45;
+  width: min(29rem, calc(100% - 2 * var(--gutter)));
+  padding: 1.5rem;
+  border: 1px solid var(--line-on-light);
+  background: var(--black);
+  color: var(--white);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.cookies[hidden] { display: none; }
+
+.cookies a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cookies a:hover { color: var(--red); }
+
+/* recusar e aceitar do mesmo tamanho: recusar não pode dar mais trabalho que aceitar */
+.cookies__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.cookies__actions .btn {
+  flex: 1;
+  justify-content: center;
+  min-height: 2.75rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cookies:not([hidden]) { animation: cookies-in 0.5s var(--ease-out) both; }
+}
+
+@keyframes cookies-in {
+  from { opacity: 0; transform: translateY(1rem); }
+}
+
+/* Política de privacidade (privacidade.html)
+   ========================================================================== */
+
+.legal-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: calc(var(--header-h) + clamp(4rem, 12vw, 9rem)) clamp(3rem, 7vw, 5rem);
+  background: var(--black);
+  color: var(--white);
+}
+
+.legal-hero__noise {
+  position: absolute;
+  top: 10%;
+  right: -12%;
+  width: clamp(420px, 52vw, 980px);
+  height: auto;
+  filter: invert(1);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.legal-hero__title {
+  position: relative;
+  max-width: 9em;
+  font-size: clamp(3rem, 1rem + 8vw, 9.5rem);
+  line-height: 1.12;
+}
+
+.legal-hero__title .bar { --bar-h: 0.06em; }
+
+.legal-hero__date {
+  position: relative;
+  margin-top: clamp(2rem, 4vw, 3rem);
+  color: var(--muted-on-dark);
+}
+
+.legal { padding-block: clamp(4rem, 8vw, 7rem) var(--space-section); }
+
+.legal__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 3rem clamp(2rem, 7vw, 8rem);
+}
+
+.legal__toc {
+  position: sticky;
+  top: calc(var(--header-h) + 2.5rem);
+}
+
+.legal__toc .label {
+  margin-bottom: 1.25rem;
+  color: var(--muted-on-light);
+}
+
+.legal__toc ol {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+  counter-reset: toc;
+}
+
+.legal__toc li { counter-increment: toc; }
+
+.legal__toc a::before {
+  content: counter(toc, decimal-leading-zero) "  ";
+  color: var(--muted-on-light);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}
+
+.legal__toc a {
+  background: linear-gradient(var(--red), var(--red)) no-repeat 0 100% / 0% 1px;
+  transition: background-size 0.3s var(--ease-out);
+}
+
+.legal__toc a:hover { background-size: 100% 1px; }
+
+.legal__intro {
+  max-width: 40ch;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* cada tópico com a linha e o trecho vermelho de "No que acreditamos" */
+.legal__section {
+  position: relative;
+  padding-block: 2.25rem 2.75rem;
+  border-top: 1px solid var(--line-on-light);
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.legal__section::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: 0;
+  width: 4rem;
+  height: 3px;
+  background: var(--red);
+}
+
+.legal__section h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.375rem, 1rem + 1vw, 1.875rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.legal__section h3 {
+  margin-block: 1.5rem 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.legal__section :is(p, ul) {
+  max-width: 62ch;
+  color: var(--muted-on-light);
+}
+
+.legal__section p + p,
+.legal__section p + ul,
+.legal__section ul + p { margin-top: 1rem; }
+
+.legal__section ul { padding-left: 1.25rem; }
+
+.legal__section li + li { margin-top: 0.35rem; }
+
+.legal__section strong { color: var(--black); }
+
+.legal__section a:not(.btn) {
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.legal__section a:not(.btn):hover { color: var(--red); }
+
+.legal__table {
+  width: 100%;
+  max-width: 62ch;
+  margin-top: 1.25rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.legal__table :is(th, td) {
+  padding: 0.75rem 1rem 0.75rem 0;
+  border-bottom: 1px solid var(--line-on-light);
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal__table th {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.legal__table td { color: var(--muted-on-light); }
+
+.legal__table + p { margin-top: 1.25rem; }
+
+.legal__table code { color: var(--black); }
+
+.legal__section .btn { margin-top: 1.5rem; }
+
+@media (max-width: 899px) {
+  .legal__grid { grid-template-columns: 1fr; }
+  .legal__toc { position: relative; top: 0; }
 }
 
 /* Movimento reduzido
